@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Nudito | Amigurumis y patrones</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@500&family=Montserrat:wght@400;500;600&family=Playfair+Display:wght@500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <!-- ENCABEZADO -->
+  <header class="encabezado">
+    <a href="#" class="logo">Nudito<span>Amigurumis · Patrones</span></a>
+    <button class="menu-toggle" id="menuToggle" aria-label="Abrir menú">☰</button>
+    <nav class="menu" id="menu">
+      <a href="#" class="activo">Inicio</a>
+      <a href="#patrones">Patrones</a>
+      <a href="#amigurumis">Amigurumis</a>
+      <a href="#insumos">Insumos</a>
+      <a href="#">Kits</a>
+    </nav>
+    <div class="acciones">
+      <a href="#" class="btn btn-borde">Ingresar</a>
+      <a href="#" class="btn">Registrarse</a>
+    </div>
+  </header>
+
+  <main>
+    <!-- HERO CON CARRUSEL -->
+    <section class="hero">
+      <div class="hero-texto">
+        <p class="hero-pre">— Hecho a mano —</p>
+        <h1>Amigurumis</h1>
+        <p class="hero-script">tejidos con amor ♡</p>
+        <hr>
+        <p class="hero-lema">Tiernos. Únicos. Tuyos.</p>
+        <p>Patrones, amigurumis y todos los materiales para tejerlos.</p>
+        <div class="hero-botones">
+          <a href="#patrones" class="btn">Ver patrones</a>
+          <a href="#amigurumis" class="btn btn-borde">Comprar amigurumis</a>
+        </div>
+      </div>
+
+      <div class="carrusel" id="carrusel">
+        <button class="carrusel-flecha izq" id="anterior" aria-label="Anterior">‹</button>
+        <div class="carrusel-slides">
+          <figure class="slide activo">
+            <div class="foto"><img src="img/patitos-rana-1.jpg" alt="Patitos con gorro de rana"></div>
+            <figcaption>Nuevos: patitos con gorro de rana</figcaption>
+          </figure>
+          <figure class="slide">
+            <div class="foto"><img src="img/lanas-chenille-surtido.png" alt="Ovillos de lana chenille"></div>
+            <figcaption>Lana chenille en 7 colores</figcaption>
+          </figure>
+          <figure class="slide">
+            <div class="foto"><img src="img/agujas-crochet-set.png" alt="Set de agujas de crochet"></div>
+            <figcaption>Agujas de 2.5 a 6 mm</figcaption>
+          </figure>
+          <figure class="slide">
+            <div class="foto"><img src="img/gatitos-1.jpg" alt="Gatitos amigurumi"></div>
+            <figcaption>Patrón de gatitos disponible</figcaption>
+          </figure>
+        </div>
+        <button class="carrusel-flecha der" id="siguiente" aria-label="Siguiente">›</button>
+        <div class="carrusel-puntos" id="puntos"></div>
+      </div>
+    </section>
+
+    <!-- BENEFICIOS -->
+    <section class="beneficios">
+      <article><span>♡</span><p>Hecho con amor</p></article>
+      <article><span>✿</span><p>Materiales de calidad</p></article>
+      <article><span>★</span><p>Patrones por nivel</p></article>
+      <article><span>✂</span><p>Kits completos</p></article>
+    </section>
+
+    <!-- TIPOS -->
+    <section class="seccion">
+      <h2>Explora por tipo</h2>
+      <p class="subtitulo">encuentra tu próximo proyecto</p>
+      <div class="tipos">
+        <a href="#" class="tipo"><div class="foto circulo"><img src="img/vaquitas-1.jpg" alt="Animales"></div><h3>Animales</h3></a>
+        <a href="#" class="tipo"><div class="foto circulo"><img src="img/reno-2.jpg" alt="Navidad"></div><h3>Navidad</h3></a>
+        <a href="#" class="tipo"><div class="foto circulo"><img src="img/corazones-1.jpg" alt="Kawaii"></div><h3>Kawaii</h3></a>
+        <a href="#" class="tipo"><div class="foto circulo"><img src="img/patitos-rana-2.jpg" alt="Mini amigurumis"></div><h3>Mini amigurumis</h3></a>
+      </div>
+    </section>
+
+    <!-- PATRONES DESTACADOS -->
+    <section class="seccion fondo-beige" id="patrones">
+      <h2>Patrones destacados</h2>
+      <p class="subtitulo">gratis y premium, para todos los niveles</p>
+      <div class="grid-tarjetas">
+        <article class="tarjeta">
+          <div class="foto"><img src="img/conejita-monos-1.jpg" alt="Patrón Conejita con moños"></div>
+          <h3>Conejita con moños</h3>
+          <span class="etiqueta">Principiante</span>
+          <span class="etiqueta gratis">Gratis</span>
+          <p class="estrellas">★★★★★</p>
+        </article>
+        <article class="tarjeta">
+          <div class="foto"><img src="img/solecito-1.jpg" alt="Patrón Solecitos"></div>
+          <h3>Solecitos</h3>
+          <span class="etiqueta">Principiante</span>
+          <span class="etiqueta precio">$12.000</span>
+          <p class="estrellas">★★★★★</p>
+        </article>
+        <article class="tarjeta">
+          <div class="foto"><img src="img/pollito-1.jpg" alt="Patrón Pollito"></div>
+          <h3>Pollito</h3>
+          <span class="etiqueta">Principiante</span>
+          <span class="etiqueta gratis">Gratis</span>
+          <p class="estrellas">★★★★★</p>
+        </article>
+        <article class="tarjeta">
+          <div class="foto"><img src="img/gatitos-3.jpg" alt="Patrón Gatitos"></div>
+          <h3>Gatitos</h3>
+          <span class="etiqueta">Intermedio</span>
+          <span class="etiqueta precio">$15.000</span>
+          <p class="estrellas">★★★★★</p>
+        </article>
+      </div>
+      <div class="centrado"><a href="#" class="btn btn-borde">Ver todos los patrones</a></div>
+    </section>
+
+    <!-- AMIGURUMIS -->
+    <section class="seccion" id="amigurumis">
+      <h2>Amigurumis listos para adoptar</h2>
+      <p class="subtitulo">pasa el mouse para ver otra foto · elige tamaño y color</p>
+      <div class="grid-tarjetas">
+        <article class="tarjeta">
+          <div class="foto"><img src="img/reno-2.jpg" alt="Reno navideño"><img class="alt" src="img/reno-1.jpg" alt="Reno navideño (otra vista)"></div>
+          <h3>Reno navideño</h3>
+          <p class="valor">Desde $42.000</p>
+          <a href="#" class="btn btn-pequeno">Ver</a>
+        </article>
+        <article class="tarjeta">
+          <div class="foto"><img src="img/muneco-nieve-1.jpg" alt="Muñeco de nieve"><img class="alt" src="img/muneco-nieve-2.jpg" alt="Muñeco de nieve (otra vista)"></div>
+          <h3>Muñeco de nieve</h3>
+          <p class="valor">Desde $45.000</p>
+          <a href="#" class="btn btn-pequeno">Ver</a>
+        </article>
+        <article class="tarjeta">
+          <div class="foto"><img src="img/mono-1.jpg" alt="Monito con bolsito"><img class="alt" src="img/mono-2.jpg" alt="Monito con bolsito (otra vista)"></div>
+          <h3>Monito con bolsito</h3>
+          <p class="valor">Desde $48.000</p>
+          <a href="#" class="btn btn-pequeno">Ver</a>
+        </article>
+        <article class="tarjeta">
+          <div class="foto"><img src="img/corazones-1.jpg" alt="Corazones"><img class="alt" src="img/corazones-2.jpg" alt="Corazones (otra vista)"></div>
+          <h3>Corazones</h3>
+          <p class="valor">Desde $35.000</p>
+          <a href="#" class="btn btn-pequeno">Ver</a>
+        </article>
+        <article class="tarjeta">
+          <div class="foto"><img src="img/conejita-hoodie-1.jpg" alt="Conejita con hoodie"><img class="alt" src="img/conejita-hoodie-2.jpg" alt="Conejita con hoodie (otra vista)"></div>
+          <h3>Conejita con hoodie</h3>
+          <p class="valor">Desde $50.000</p>
+          <a href="#" class="btn btn-pequeno">Ver</a>
+        </article>
+        <article class="tarjeta">
+          <div class="foto"><img src="img/vaquitas-1.jpg" alt="Vaquitas peludas"><img class="alt" src="img/vaquitas-2.jpg" alt="Vaquitas peludas (otra vista)"></div>
+          <h3>Vaquitas peludas</h3>
+          <p class="valor">Desde $46.000</p>
+          <a href="#" class="btn btn-pequeno">Ver</a>
+        </article>
+        <article class="tarjeta">
+          <div class="foto"><img src="img/patitos-rana-1.jpg" alt="Patitos con gorro de rana"><img class="alt" src="img/patitos-rana-2.jpg" alt="Patitos con gorro de rana (otra vista)"></div>
+          <h3>Patitos con gorro de rana</h3>
+          <p class="valor">Desde $22.000</p>
+          <a href="#" class="btn btn-pequeno">Ver</a>
+        </article>
+        <article class="tarjeta">
+          <div class="foto"><img src="img/gatitos-1.jpg" alt="Gatitos"><img class="alt" src="img/gatitos-2.jpg" alt="Gatitos (otra vista)"></div>
+          <h3>Gatitos</h3>
+          <p class="valor">Desde $38.000</p>
+          <a href="#" class="btn btn-pequeno">Ver</a>
+        </article>
+      </div>
+    </section>
+
+    <!-- INSUMOS -->
+    <section class="seccion fondo-beige" id="insumos">
+      <h2>Insumos para tejer</h2>
+      <p class="subtitulo">todo lo que necesitas para tu amigurumi</p>
+      <div class="grid-insumos">
+        <article class="tarjeta">
+          <div class="foto"><img id="fotoChenille" src="img/lanas-chenille-surtido.png" alt="Lana chenille"></div>
+          <h3>Lana chenille 100 g</h3>
+          <p class="valor">$14.000</p>
+          <div class="colores">
+            <button class="color" style="background:#B08D6E" data-img="img/chenille-cafe.png" aria-label="Chenille cafe"></button>
+            <button class="color" style="background:#F3EFE4" data-img="img/chenille-blanco.png" aria-label="Chenille blanco"></button>
+            <button class="color" style="background:#BFD9F2" data-img="img/chenille-celeste.png" aria-label="Chenille celeste"></button>
+            <button class="color" style="background:#C9CDD2" data-img="img/chenille-gris.png" aria-label="Chenille gris"></button>
+            <button class="color" style="background:#2B2B2B" data-img="img/chenille-negro.png" aria-label="Chenille negro"></button>
+            <button class="color" style="background:#7FD8C3" data-img="img/chenille-menta.png" aria-label="Chenille menta"></button>
+            <button class="color" style="background:#C8D96A" data-img="img/chenille-verde.png" aria-label="Chenille verde"></button>
+          </div>
+          <a href="#" class="btn btn-pequeno">Agregar</a>
+        </article>
+        <article class="tarjeta">
+          <div class="foto"><img src="img/agujas-crochet-set.png" alt="Set de agujas de crochet"></div>
+          <h3>Set de agujas ergonómicas</h3>
+          <p class="valor">$45.000</p>
+          <p class="detalle">8 agujas de 2.5 a 6 mm, con marcadores y agujas lanera.</p>
+          <a href="#" class="btn btn-pequeno">Agregar</a>
+        </article>
+        <article class="tarjeta">
+          <div class="foto"><img src="img/marcadores-caja.png" alt="Marcadores de puntos"><img class="alt" src="img/marcadores-colores.png" alt="Marcadores de colores"></div>
+          <h3>Marcadores de puntos x40</h3>
+          <p class="valor">$8.000</p>
+          <p class="detalle">Para marcar el inicio de cada vuelta.</p>
+          <a href="#" class="btn btn-pequeno">Agregar</a>
+        </article>
+      </div>
+    </section>
+  </main>
+
+  <!-- PIE DE PÁGINA -->
+  <footer class="pie">
+    <div>
+      <p class="pie-script">gracias por tejer con nosotros ♡</p>
+      <p class="pie-lema">Hecho a mano · Hecho con amor</p>
+    </div>
+    <div class="pie-links">
+      <a href="#">Contacto</a> · <a href="#">Envíos</a> · <a href="#">Preguntas frecuentes</a>
+      <p>Fotos de amigurumis: Cherry Crochet · Lana chenille: TSM (imágenes de referencia)</p>
+      <p>© 2026 Nudito – Programación en la Web G2</p>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
