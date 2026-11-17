@@ -6,6 +6,4 @@ Esta rama contiene la **entrega del avance 1**:
 - `docs/AvanceProyectoPWCrochet.pdf`: documento del avance (definición del proyecto, modelos, funcionalidades, roles, diagramas y mockups).
 - `index.html`, `styles.css`, `script.js` e `img/`: ejemplo del **Home** en HTML, CSS y JavaScript.
 
-Para verlo, descarga la rama y abre `index.html` en el navegador.
-
 La versión final del proyecto (Django) está en la rama **`entrega-final`**.
