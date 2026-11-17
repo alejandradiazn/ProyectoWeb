@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block titulo %}Iniciar sesión | Nudito{% endblock %}
+{% block contenido %}
+<section class="cuenta-pagina">
+  <div class="cuenta-foto"><div class="polar"><div class="foto foto-media"><img src="{% static 'img/conejita-monos-1.jpg' %}" alt=""></div><p class="hero-script pequeno">bienvenida de vuelta ♡</p></div></div>
+  <div class="cuenta-form">
+    <h1 class="titulo-pagina">Iniciar sesión</h1>
+    <p class="hero-script pequeno">tus patrones te están esperando</p>
+    <form method="post" class="formulario">
+      {% csrf_token %}
+      {% if form.errors %}<p class="mensaje error">Usuario o contraseña incorrectos.</p>{% endif %}
+      {{ form.as_p }}
+      <input type="hidden" name="next" value="{{ next }}">
+      <button class="btn ancho" type="submit">Ingresar</button>
+    </form>
+    <p>¿No tienes cuenta? <a href="{% url 'registro' %}"><b>Regístrate</b></a></p>
+  </div>
+</section>
+{% endblock %}

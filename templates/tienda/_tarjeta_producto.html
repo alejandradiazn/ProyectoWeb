@@ -1,0 +1,8 @@
+<article class="tarjeta">
+  <a href="{% url 'detalle_producto' p.pk %}">
+    <div class="foto"><img src="{{ p.foto.url }}" alt="{{ p.nombre }}">{% if p.foto_alterna %}<img class="alt" src="{{ p.foto_alterna.url }}" alt="{{ p.nombre }} (otra vista)">{% endif %}</div>
+    <h3>{{ p.nombre }}</h3>
+  </a>
+  <p class="valor">Desde ${{ p.precio_desde }}</p>
+  <a href="{% url 'detalle_producto' p.pk %}" class="btn btn-pequeno">Ver</a>
+</article>

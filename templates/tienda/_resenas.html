@@ -1,0 +1,24 @@
+<section class="seccion-detalle">
+  <h2 class="titulo-izq">Reseñas</h2>
+  {% for r in resenas %}
+    <div class="tarjeta resena">
+      <b>{{ r.usuario.first_name|default:r.usuario.username }}</b>
+      <span class="estrellas">{{ r.get_calificacion_display }}</span>
+      <span class="etiqueta gratis">Compra verificada</span>
+      <p>{{ r.comentario }}</p>
+    </div>
+  {% empty %}
+    <p>Todavía no hay reseñas.</p>
+  {% endfor %}
+  {% if puede_resenar %}
+    <form method="post" action="{{ accion }}" class="tarjeta form-resena">
+      {% csrf_token %}
+      <h3>Deja tu reseña</h3>
+      <div class="calificacion">{{ form_resena.calificacion }}</div>
+      {{ form_resena.comentario }}
+      <button class="btn" type="submit">Publicar reseña</button>
+    </form>
+  {% elif user.is_authenticated %}
+    <p class="nota">Solo quienes adquirieron este artículo pueden reseñarlo.</p>
+  {% endif %}
+</section>

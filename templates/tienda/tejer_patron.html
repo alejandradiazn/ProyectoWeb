@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+{% block titulo %}Tejiendo {{ patron.titulo }} | Nudito{% endblock %}
+{% block contenido %}
+<div class="cabecera-pagina"><p class="migas"><a href="{% url 'mis_patrones' %}">Mis patrones</a> / {{ patron.titulo }} / Tejiendo</p></div>
+<section class="tejer">
+  <aside>
+    <div class="polar"><div class="foto foto-media"><img src="{{ patron.foto.url }}" alt="{{ patron.titulo }}"></div></div>
+    <div class="tarjeta">
+      <h3 class="rosa">Tu progreso</h3>
+      <div class="anillo" id="anillo" style="--p: {{ porcentaje }}">
+        <div><b id="porcentaje">{{ porcentaje }}%</b><small><span id="totalHechas">{{ total_hechas }}</span> de {{ total_vueltas }} vueltas</small></div>
+      </div>
+      <p class="filtro-titulo">Piezas</p>
+      {% for p in piezas %}
+        <a class="fila-pieza {% if p.pieza.id == actual.pieza.id %}activa{% endif %}" href="?pieza={{ p.pieza.id }}">
+          <span>{% if p.completa %}✅{% elif p.hechas %}🔄{% else %}⬜{% endif %} {{ p.pieza.nombre }}{% if p.pieza.cantidad > 1 %} (×{{ p.pieza.cantidad }}){% endif %}</span>
+          <small>{{ p.hechas }}/{{ p.total }}</small>
+        </a>
+      {% endfor %}
+    </div>
+  </aside>
+
+  <div>
+    <span class="etiqueta">{{ patron.get_nivel_display }}</span>
+    <h1 class="titulo-pagina">{{ patron.titulo }}</h1>
+    {% if actual %}
+    <div class="tarjeta">
+      <div class="fila-progreso">
+        <h2 class="titulo-izq">{{ actual.pieza.nombre }}</h2>
+        <small><span id="hechasPieza">{{ actual.hechas }}</span> de {{ actual.total }} vueltas</small>
+      </div>
+      <table class="tabla-vueltas">
+        <tr><th>Hecho</th><th>Vuelta</th><th>Instrucción</th><th>Puntos</th></tr>
+        {% for v in actual.vueltas %}
+        <tr class="{% if v.id in hechas %}hecha{% elif v == siguiente %}actual{% endif %}">
+          <td><input type="checkbox" class="check-vuelta" data-url="{% url 'marcar_vuelta' v.pk %}" {% if v.id in hechas %}checked{% endif %}></td>
+          <td>{{ v.numero }}{% if v == siguiente %} ← vas aquí{% endif %}</td>
+          <td>{{ v.instruccion }}</td>
+          <td>{{ v.puntos|default:"" }}</td>
+        </tr>
+        {% endfor %}
+      </table>
+      <p class="nota">💡 Tu progreso se guarda automáticamente al marcar cada vuelta.</p>
+    </div>
+    {% else %}
+      <p>Este patrón todavía no tiene piezas cargadas.</p>
+    {% endif %}
+  </div>
+</section>
+{% csrf_token %}
+{% endblock %}

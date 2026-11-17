@@ -1,0 +1,83 @@
+{% extends 'base.html' %}
+{% block titulo %}{{ producto.nombre }} | Nudito{% endblock %}
+{% block contenido %}
+<div class="cabecera-pagina"><p class="migas"><a href="{% if producto.tipo == 'amigurumi' %}{% url 'amigurumis' %}{% else %}{% url 'insumos' %}{% endif %}">{{ producto.get_tipo_display }}s</a> / {{ producto.nombre }}</p></div>
+<section class="detalle">
+  <div>
+    <div class="polar"><div class="foto foto-grande"><img id="fotoProducto" src="{{ producto.foto.url }}" alt="{{ producto.nombre }}"></div></div>
+    {% if producto.foto_alterna %}
+    <div class="miniaturas">
+      <img src="{{ producto.foto.url }}" data-foto="{{ producto.foto.url }}" alt="">
+      <img src="{{ producto.foto_alterna.url }}" data-foto="{{ producto.foto_alterna.url }}" alt="">
+    </div>
+    {% endif %}
+  </div>
+  <div>
+    <span class="etiqueta">{{ producto.categoria }}</span>
+    <h1 class="titulo-pagina">{{ producto.nombre }}</h1>
+    <p class="estrellas">{% include 'tienda/_estrellas.html' with valor=producto.calificacion %}</p>
+    <p class="descripcion">{{ producto.descripcion }}</p>
+
+    <form method="post" action="{% url 'agregar_variante' %}" id="formVariante">
+      {% csrf_token %}
+      <input type="hidden" name="variante" id="varianteId" value="{{ variantes.0.id }}">
+      {% if tamanos|length > 1 or tamanos.0.0 != 'unico' %}
+      <p class="filtro-titulo">Tamaño</p>
+      <div class="opciones">
+        {% for valor, nombre in tamanos %}<button type="button" class="opcion tamano {% if forloop.first %}activo{% endif %}" data-tamano="{{ valor }}">{{ nombre }}</button>{% endfor %}
+      </div>
+      {% endif %}
+      {% if colores|length > 1 %}
+      <p class="filtro-titulo">Color de tejido: <span id="nombreColor">{{ colores.0.0 }}</span></p>
+      <div class="colores">
+        {% for nombre, hex in colores %}<button type="button" class="color {% if forloop.first %}activo{% endif %}" style="background:{{ hex }}" data-color="{{ nombre }}" aria-label="{{ nombre }}"></button>{% endfor %}
+      </div>
+      {% endif %}
+      <p class="filtro-titulo">Cantidad</p>
+      <input type="number" name="cantidad" value="1" min="1" class="cantidad">
+      <p class="precio-grande">$<span id="precio">{{ variantes.0.precio|default:producto.precio }}</span></p>
+      {% if variantes %}<button class="btn" type="submit">Agregar al carrito</button>
+      {% else %}<p class="nota">Este producto no tiene opciones disponibles por ahora.</p>{% endif %}
+      <p class="nota" id="noDisponible" hidden>Esta combinación no está disponible.</p>
+    </form>
+  </div>
+</section>
+
+{% url 'resenar' 'producto' producto.pk as accion %}
+{% include 'tienda/_resenas.html' with accion=accion %}
+{% endblock %}
+
+{% block scripts %}
+{{ variantes_json|json_script:"variantes" }}
+<script>
+  // Selector de tamaño y color: busca la variante elegida y actualiza el precio y la foto
+  const variantes = JSON.parse(document.getElementById('variantes').textContent);
+  let tamano = document.querySelector('.opcion.tamano.activo')?.dataset.tamano || (variantes[0] && variantes[0].tamano);
+  let color = document.querySelector('.color.activo')?.dataset.color || (variantes[0] && variantes[0].color);
+  const fotoBase = document.getElementById('fotoProducto').src;
+
+  function actualizar() {
+    const v = variantes.find(x => x.tamano === tamano && x.color === color);
+    document.getElementById('noDisponible').hidden = !!v;
+    document.querySelector('#formVariante button[type=submit]')?.toggleAttribute('disabled', !v);
+    if (!v) return;
+    document.getElementById('varianteId').value = v.id;
+    document.getElementById('precio').textContent = v.precio.toLocaleString('es-CO');
+    document.getElementById('fotoProducto').src = v.foto || fotoBase;
+  }
+
+  document.querySelectorAll('.opcion.tamano').forEach(b => b.addEventListener('click', () => {
+    document.querySelectorAll('.opcion.tamano').forEach(x => x.classList.remove('activo'));
+    b.classList.add('activo'); tamano = b.dataset.tamano; actualizar();
+  }));
+  document.querySelectorAll('#formVariante .color').forEach(b => b.addEventListener('click', () => {
+    document.querySelectorAll('#formVariante .color').forEach(x => x.classList.remove('activo'));
+    b.classList.add('activo'); color = b.dataset.color;
+    document.getElementById('nombreColor').textContent = color; actualizar();
+  }));
+  document.querySelectorAll('.miniaturas img').forEach(img => img.addEventListener('click', () => {
+    document.getElementById('fotoProducto').src = img.dataset.foto;
+  }));
+  actualizar();
+</script>
+{% endblock %}

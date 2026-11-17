@@ -1,0 +1,92 @@
+{% extends 'base.html' %}
+{% block contenido %}
+<section class="hero">
+  <div class="hero-texto">
+    <p class="hero-pre">— Hecho a mano —</p>
+    <h1>Amigurumis</h1>
+    <p class="hero-script">tejidos con amor ♡</p>
+    <hr>
+    <p class="hero-lema">Tiernos. Únicos. Tuyos.</p>
+    <p>Patrones, amigurumis y todos los materiales para tejerlos.</p>
+    <div class="hero-botones">
+      <a href="{% url 'catalogo_patrones' %}" class="btn">Ver patrones</a>
+      <a href="{% url 'amigurumis' %}" class="btn btn-borde">Comprar amigurumis</a>
+    </div>
+  </div>
+
+  {% if carrusel %}
+  <div class="carrusel" id="carrusel">
+    <button class="carrusel-flecha izq" id="anterior" aria-label="Anterior">‹</button>
+    <div class="carrusel-slides">
+      {% for img in carrusel %}
+      <figure class="slide {% if forloop.first %}activo{% endif %}">
+        <a href="{{ img.enlace|default:'#' }}"><div class="foto"><img src="{{ img.imagen.url }}" alt="{{ img.titulo }}"></div></a>
+        <figcaption>{{ img.titulo }}</figcaption>
+      </figure>
+      {% endfor %}
+    </div>
+    <button class="carrusel-flecha der" id="siguiente" aria-label="Siguiente">›</button>
+    <div class="carrusel-puntos" id="puntos"></div>
+  </div>
+  {% endif %}
+</section>
+
+<section class="beneficios">
+  <article><span>♡</span><p>Hecho con amor</p></article>
+  <article><span>✿</span><p>Materiales de calidad</p></article>
+  <article><span>★</span><p>Patrones por nivel</p></article>
+  <article><span>✂</span><p>Kits completos</p></article>
+</section>
+
+<section class="seccion">
+  <h2>Explora por tipo</h2>
+  <p class="subtitulo">encuentra tu próximo proyecto</p>
+  <div class="tipos">
+    {% for c in categorias %}
+    <a href="{% url 'catalogo_patrones' %}?categoria={{ c.slug }}" class="tipo">
+      <div class="foto circulo">{% if c.imagen %}<img src="{{ c.imagen.url }}" alt="{{ c.nombre }}">{% endif %}</div>
+      <h3>{{ c.nombre }}</h3>
+    </a>
+    {% endfor %}
+  </div>
+</section>
+
+<section class="seccion fondo-beige" id="patrones">
+  <h2>Patrones destacados</h2>
+  <p class="subtitulo">gratis y premium, para todos los niveles</p>
+  <div class="grid-tarjetas">
+    {% for p in patrones %}{% include 'tienda/_tarjeta_patron.html' %}{% endfor %}
+  </div>
+  <div class="centrado"><a href="{% url 'catalogo_patrones' %}" class="btn btn-borde">Ver todos los patrones</a></div>
+</section>
+
+<section class="seccion" id="amigurumis">
+  <h2>Amigurumis listos para adoptar</h2>
+  <p class="subtitulo">pasa el mouse para ver otra foto · elige tamaño y color</p>
+  <div class="grid-tarjetas">
+    {% for p in amigurumis %}{% include 'tienda/_tarjeta_producto.html' %}{% endfor %}
+  </div>
+</section>
+
+<section class="seccion fondo-beige" id="insumos">
+  <h2>Insumos para tejer</h2>
+  <p class="subtitulo">todo lo que necesitas para tu amigurumi</p>
+  <div class="grid-insumos">
+    {% for p in insumos %}
+    <article class="tarjeta">
+      <a href="{% url 'detalle_producto' p.pk %}"><div class="foto"><img class="foto-insumo" src="{{ p.foto.url }}" alt="{{ p.nombre }}"></div>
+      <h3>{{ p.nombre }}</h3></a>
+      <p class="valor">Desde ${{ p.precio_desde }}</p>
+      {% if p.variantes.all|length > 1 %}
+      <div class="colores">
+        {% for v in p.variantes.all %}
+        <button class="color" style="background:{{ v.color_hex }}" data-img="{% if v.foto %}{{ v.foto.url }}{% else %}{{ p.foto.url }}{% endif %}" aria-label="{{ v.color }}"></button>
+        {% endfor %}
+      </div>
+      {% else %}<p class="detalle">{{ p.descripcion|truncatechars:70 }}</p>{% endif %}
+      <a href="{% url 'detalle_producto' p.pk %}" class="btn btn-pequeno">Ver</a>
+    </article>
+    {% endfor %}
+  </div>
+</section>
+{% endblock %}

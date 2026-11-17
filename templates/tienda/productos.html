@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% block titulo %}{{ titulo }} | Nudito{% endblock %}
+{% block contenido %}
+<div class="cabecera-pagina">
+  <h1 class="titulo-pagina">{{ titulo }}</h1>
+  <form method="get" class="barra-catalogo">
+    <input type="search" name="q" value="{{ filtro.q }}" placeholder="🔍 Buscar {{ titulo|lower }}..." class="buscador">
+    <select name="categoria" class="selector" onchange="this.form.submit()">
+      <option value="">Todas las categorías</option>
+      {% for c in categorias %}<option value="{{ c.slug }}" {% if c.slug == filtro.categoria %}selected{% endif %}>{{ c.nombre }}</option>{% endfor %}
+    </select>
+  </form>
+</div>
+<section class="seccion-detalle">
+  <div class="grid-tarjetas">
+    {% for p in productos %}{% include 'tienda/_tarjeta_producto.html' %}
+    {% empty %}<p>No encontramos productos.</p>{% endfor %}
+  </div>
+</section>
+{% endblock %}

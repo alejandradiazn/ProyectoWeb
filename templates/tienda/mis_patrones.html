@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% block titulo %}Mis patrones | Nudito{% endblock %}
+{% block contenido %}
+<div class="cabecera-pagina">
+  <h1 class="titulo-pagina">Mis patrones</h1>
+  <p class="hero-script pequeno">sigue tejiendo donde lo dejaste</p>
+</div>
+<section class="seccion-detalle">
+  <div class="grid-tarjetas tres">
+    {% for item in lista %}
+    <article class="tarjeta">
+      <div class="foto"><img src="{{ item.patron.foto.url }}" alt="{{ item.patron.titulo }}"></div>
+      <h3>{{ item.patron.titulo }}</h3>
+      <div class="barra"><div style="width: {{ item.porcentaje }}%"></div></div>
+      <div class="fila-progreso">
+        <b>{{ item.porcentaje }}%</b>
+        <a href="{% url 'tejer_patron' item.patron.pk %}" class="btn btn-pequeno btn-borde">
+          {% if item.porcentaje == 100 %}Terminado ✓{% elif item.porcentaje == 0 %}Empezar{% else %}Continuar{% endif %}
+        </a>
+      </div>
+    </article>
+    {% empty %}
+    <p>Aún no tienes patrones. <a href="{% url 'catalogo_patrones' %}">Explora el catálogo</a>.</p>
+    {% endfor %}
+  </div>
+</section>
+{% endblock %}

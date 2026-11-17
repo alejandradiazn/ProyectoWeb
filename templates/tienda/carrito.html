@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+{% block titulo %}Carrito | Nudito{% endblock %}
+{% block contenido %}
+<div class="cabecera-pagina"><h1 class="titulo-pagina">Tu carrito</h1></div>
+<section class="seccion-detalle">
+  {% if lineas %}
+  <div class="tarjeta">
+    <table class="tabla">
+      <tr><th>Artículo</th><th>Precio</th><th>Cantidad</th><th>Subtotal</th><th></th></tr>
+      {% for l in lineas %}
+      <tr>
+        <td>{{ l.nombre }}</td><td>${{ l.precio }}</td><td>{{ l.cantidad }}</td><td>${{ l.subtotal }}</td>
+        <td><form method="post" action="{% url 'quitar_del_carrito' l.clave %}">{% csrf_token %}<button class="enlace" type="submit">Quitar</button></form></td>
+      </tr>
+      {% endfor %}
+    </table>
+    <div class="fila-progreso total">
+      <p class="precio-grande">Total: ${{ total }}</p>
+      {% if user.is_authenticated %}
+      <form method="post" action="{% url 'confirmar_pedido' %}">{% csrf_token %}<button class="btn" type="submit">Confirmar pedido</button></form>
+      {% else %}
+      <a href="{% url 'login' %}?next={% url 'carrito' %}" class="btn">Ingresa para confirmar</a>
+      {% endif %}
+    </div>
+    <p class="nota">Al confirmar, serás dirigido a la pasarela de pagos para completar el pago.</p>
+  </div>
+  {% else %}
+  <p>Tu carrito está vacío. <a href="{% url 'amigurumis' %}">Ver amigurumis</a></p>
+  {% endif %}
+</section>
+{% endblock %}

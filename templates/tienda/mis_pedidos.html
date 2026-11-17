@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% block titulo %}Mis pedidos | Nudito{% endblock %}
+{% block contenido %}
+<div class="cabecera-pagina"><h1 class="titulo-pagina">Mis pedidos</h1></div>
+<section class="seccion-detalle">
+  {% for p in pedidos %}
+  <div class="tarjeta pedido">
+    <div class="fila-progreso">
+      <h3>Pedido #{{ p.pk }} · {{ p.fecha|date:"d/m/Y" }}</h3>
+      <span class="etiqueta estado-{{ p.estado }}">{{ p.get_estado_display }}</span>
+    </div>
+    <ul>
+      {% for d in p.detalles.all %}<li>{{ d.cantidad }} × {% if d.variante %}{{ d.variante }}{% elif d.kit %}{{ d.kit.nombre }}{% else %}Patrón {{ d.patron.titulo }}{% endif %} — ${{ d.subtotal }}</li>{% endfor %}
+    </ul>
+    <p><b>Total: ${{ p.total }}</b></p>
+    {% if p.estado == 'pendiente' %}<p class="nota">Pendiente de confirmación del pago en la pasarela. Los patrones del pedido se desbloquean cuando se confirme.</p>{% endif %}
+    {% if p.estado == 'despachado' %}<p class="nota">El seguimiento del envío lo realiza la transportadora.</p>{% endif %}
+  </div>
+  {% empty %}
+  <p>Aún no has hecho pedidos.</p>
+  {% endfor %}
+</section>
+{% endblock %}

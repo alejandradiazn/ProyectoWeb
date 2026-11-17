@@ -1,0 +1,1 @@
+{% if valor %}{% for i in "12345" %}{% if forloop.counter <= valor|floatformat:0|add:0 %}★{% else %}☆{% endif %}{% endfor %} <small>{{ valor|floatformat:1 }}</small>{% else %}<small class="sin-resenas">Sin reseñas aún</small>{% endif %}

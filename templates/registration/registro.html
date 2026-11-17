@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block titulo %}Crear cuenta | Nudito{% endblock %}
+{% block contenido %}
+<section class="cuenta-pagina">
+  <div class="cuenta-foto">
+    <div class="polar"><div class="foto foto-media"><img src="{% static 'img/gatitos-1.jpg' %}" alt=""></div><p class="hero-script pequeno">únete a la comunidad ♡</p></div>
+    <ul class="beneficios-lista">
+      <li>♡ Guardar tus patrones en "Mis patrones"</li>
+      <li>✿ Marcar tu progreso vuelta a vuelta</li>
+      <li>🧸 Comprar amigurumis personalizados</li>
+      <li>★ Calificar y reseñar tus compras</li>
+    </ul>
+  </div>
+  <div class="cuenta-form">
+    <h1 class="titulo-pagina">Crear cuenta</h1>
+    <p class="hero-script pequeno">empieza a tejer con nosotros</p>
+    <form method="post" class="formulario">
+      {% csrf_token %}
+      {{ form.as_p }}
+      <button class="btn ancho" type="submit">Crear mi cuenta</button>
+    </form>
+    <p>¿Ya tienes cuenta? <a href="{% url 'login' %}"><b>Inicia sesión</b></a></p>
+  </div>
+</section>
+{% endblock %}

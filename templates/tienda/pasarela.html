@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% block titulo %}Pasarela de pagos | Nudito{% endblock %}
+{% block contenido %}
+<section class="seccion-detalle pasarela">
+  <div class="tarjeta">
+    <div class="cargando"></div>
+    <h1 class="titulo-pagina">Te estamos redirigiendo a la pasarela de pagos</h1>
+    <p>Pedido <b>#{{ pedido.pk }}</b> · Total a pagar: <b>${{ pedido.total }}</b></p>
+    <div class="medios">
+      <span>PSE</span><span>Tarjeta de crédito</span><span>Nequi</span>
+    </div>
+    <p class="nota">En esta etapa el usuario continuaría el pago en una plataforma externa (por ejemplo Wompi o Mercado Pago).
+      La conexión con la pasarela de pagos está fuera del alcance del proyecto.</p>
+    <a href="{% url 'mis_pedidos' %}" class="btn">Ver mis pedidos</a>
+  </div>
+</section>
+{% endblock %}

@@ -1,0 +1,67 @@
+{% load static %}<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{% block titulo %}Nudito | Amigurumis y patrones{% endblock %}</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@500&family=Montserrat:wght@400;500;600&family=Playfair+Display:wght@500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+  <link rel="stylesheet" href="{% static 'css/paginas.css' %}">
+</head>
+<body>
+  <header class="encabezado">
+    <a href="{% url 'home' %}" class="logo">Nudito<span>Amigurumis · Patrones</span></a>
+    <button class="menu-toggle" id="menuToggle" aria-label="Abrir menú">☰</button>
+    <nav class="menu" id="menu">
+      {% with url=request.resolver_match.url_name %}
+      <a href="{% url 'home' %}" {% if url == 'home' %}class="activo"{% endif %}>Inicio</a>
+      <a href="{% url 'catalogo_patrones' %}" {% if 'patron' in url %}class="activo"{% endif %}>Patrones</a>
+      <a href="{% url 'amigurumis' %}" {% if url == 'amigurumis' %}class="activo"{% endif %}>Amigurumis</a>
+      <a href="{% url 'insumos' %}" {% if url == 'insumos' %}class="activo"{% endif %}>Insumos</a>
+      {% endwith %}
+    </nav>
+    <div class="acciones">
+      <a href="{% url 'carrito' %}" class="carrito-link">🛒 <span>{{ cantidad_carrito }}</span></a>
+      {% if user.is_authenticated %}
+        <div class="cuenta">
+          <a href="{% url 'mis_patrones' %}" class="btn btn-borde">Mi cuenta ▾</a>
+          <div class="cuenta-menu">
+            <a href="{% url 'mis_patrones' %}">Mis patrones</a>
+            <a href="{% url 'mis_pedidos' %}">Mis pedidos</a>
+            <a href="{% url 'perfil' %}">Mi perfil</a>
+            {% if user.is_staff %}<a href="{% url 'admin:index' %}">Panel de administración</a>{% endif %}
+            <form method="post" action="{% url 'logout' %}">{% csrf_token %}<button type="submit">Cerrar sesión</button></form>
+          </div>
+        </div>
+      {% else %}
+        <a href="{% url 'login' %}" class="btn btn-borde">Ingresar</a>
+        <a href="{% url 'registro' %}" class="btn">Registrarse</a>
+      {% endif %}
+    </div>
+  </header>
+
+  {% if messages %}
+  <div class="mensajes">
+    {% for m in messages %}<p class="mensaje {{ m.tags }}">{{ m }}</p>{% endfor %}
+  </div>
+  {% endif %}
+
+  <main>{% block contenido %}{% endblock %}</main>
+
+  <footer class="pie">
+    <div>
+      <p class="pie-script">gracias por tejer con nosotros ♡</p>
+      <p class="pie-lema">Hecho a mano · Hecho con amor</p>
+    </div>
+    <div class="pie-links">
+      <a href="#">Contacto</a> · <a href="#">Envíos</a> · <a href="#">Preguntas frecuentes</a>
+      <p>Fotos de amigurumis: Cherry Crochet · Lana chenille: TSM (imágenes de referencia)</p>
+      <p>© 2026 Nudito – Programación en la Web G2</p>
+    </div>
+  </footer>
+
+  <script src="{% static 'js/script.js' %}"></script>
+  {% block scripts %}{% endblock %}
+</body>
+</html>

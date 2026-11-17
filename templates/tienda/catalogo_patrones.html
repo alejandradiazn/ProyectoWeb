@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+{% block titulo %}Patrones | Nudito{% endblock %}
+{% block contenido %}
+<div class="cabecera-pagina">
+  <p class="migas">Inicio / Patrones</p>
+  <h1 class="titulo-pagina">Patrones de amigurumi</h1>
+</div>
+<form method="get" class="catalogo">
+  <aside class="tarjeta filtros-panel">
+    <h3>Filtrar</h3>
+    <p class="filtro-titulo">Nivel</p>
+    {% for valor, nombre in niveles %}
+      <label><input type="checkbox" name="nivel" value="{{ valor }}" {% if valor in filtro.niveles %}checked{% endif %}> {{ nombre }}</label>
+    {% endfor %}
+    <p class="filtro-titulo">Tipo</p>
+    {% for c in categorias %}
+      <label><input type="checkbox" name="categoria" value="{{ c.slug }}" {% if c.slug in filtro.categorias %}checked{% endif %}> {{ c.nombre }}</label>
+    {% endfor %}
+    <p class="filtro-titulo">Precio</p>
+    <label><input type="radio" name="precio" value="" {% if not filtro.precio %}checked{% endif %}> Todos</label>
+    <label><input type="radio" name="precio" value="gratis" {% if filtro.precio == 'gratis' %}checked{% endif %}> Gratis</label>
+    <label><input type="radio" name="precio" value="pago" {% if filtro.precio == 'pago' %}checked{% endif %}> De pago</label>
+    <button class="btn" type="submit">Aplicar</button>
+    <a href="{% url 'catalogo_patrones' %}" class="limpiar">Limpiar filtros</a>
+  </aside>
+
+  <div>
+    <div class="barra-catalogo">
+      <input type="search" name="q" value="{{ filtro.q }}" placeholder="🔍 Buscar patrón..." class="buscador">
+      <select name="orden" class="selector" onchange="this.form.submit()">
+        <option value="recientes" {% if filtro.orden == 'recientes' %}selected{% endif %}>Más recientes</option>
+        <option value="valorados" {% if filtro.orden == 'valorados' %}selected{% endif %}>Mejor valorados</option>
+        <option value="precio" {% if filtro.orden == 'precio' %}selected{% endif %}>Menor precio</option>
+      </select>
+    </div>
+    <p class="resultados">{{ patrones|length }} patrón{{ patrones|length|pluralize:"es" }}</p>
+    <div class="grid-tarjetas tres">
+      {% for p in patrones %}{% include 'tienda/_tarjeta_patron.html' %}
+      {% empty %}<p>No encontramos patrones con esos filtros.</p>{% endfor %}
+    </div>
+  </div>
+</form>
+{% endblock %}

@@ -1,0 +1,71 @@
+{% extends 'base.html' %}
+{% block titulo %}{{ patron.titulo }} | Nudito{% endblock %}
+{% block contenido %}
+<div class="cabecera-pagina"><p class="migas"><a href="{% url 'catalogo_patrones' %}">Patrones</a> / {{ patron.titulo }}</p></div>
+<section class="detalle">
+  <div><div class="polar"><div class="foto foto-grande"><img src="{{ patron.foto.url }}" alt="{{ patron.titulo }}"></div></div></div>
+  <div>
+    <span class="etiqueta">{{ patron.get_nivel_display }}</span> <span class="etiqueta">{{ patron.categoria }}</span>
+    <h1 class="titulo-pagina">{{ patron.titulo }}</h1>
+    <p class="estrellas">{% include 'tienda/_estrellas.html' with valor=patron.calificacion %}</p>
+    <p class="descripcion">{{ patron.descripcion }}</p>
+    {% if patron.tamano_final %}<p><b>Tamaño final:</b> {{ patron.tamano_final }} · <b>Piezas:</b> {{ piezas|length }} · <b>Vueltas:</b> {{ patron.total_vueltas }}</p>{% endif %}
+    <p class="precio-grande">{% if patron.es_gratuito %}Gratis{% else %}${{ patron.precio }}{% endif %}</p>
+
+    {% if guardado %}
+      <a href="{% url 'tejer_patron' patron.pk %}" class="btn">Continuar tejiendo</a>
+    {% elif pago_pendiente %}
+      <p class="etiqueta precio">Pago pendiente de confirmación</p>
+      <p class="nota">Cuando se confirme el pago de tu pedido, el patrón se desbloqueará en Mis patrones.</p>
+    {% elif patron.es_gratuito and user.is_authenticated %}
+      <form method="post" action="{% url 'adquirir_patron' patron.pk %}">{% csrf_token %}
+        <button class="btn" type="submit">Guardar en Mis patrones</button>
+      </form>
+    {% elif not patron.es_gratuito %}
+      <form method="post" action="{% url 'agregar_patron' patron.pk %}">{% csrf_token %}
+        <button class="btn" type="submit">Agregar al carrito ${{ patron.precio }}</button>
+      </form>
+    {% else %}
+      <a href="{% url 'login' %}?next={{ request.path }}" class="btn">Ingresa para {% if patron.es_gratuito %}guardarlo{% else %}comprarlo{% endif %}</a>
+    {% endif %}
+
+    {% if materiales %}
+    <div class="tarjeta materiales">
+      <h3>✂ Materiales sugeridos</h3>
+      {% for m in materiales %}
+        <div class="fila-material"><span>{{ m.cantidad }} × <a href="{% url 'detalle_producto' m.producto.pk %}">{{ m.producto.nombre }}</a></span><span>${{ m.producto.precio_desde }}</span></div>
+      {% endfor %}
+      {% if kit %}
+      <div class="kit">
+        <div><b>{{ kit.nombre }}</b><br><span class="valor">${{ kit.precio }}</span></div>
+        <form method="post" action="{% url 'agregar_kit' kit.pk %}">{% csrf_token %}<button class="btn btn-borde" type="submit">Agregar kit</button></form>
+      </div>
+      {% endif %}
+    </div>
+    {% endif %}
+  </div>
+</section>
+
+<section class="seccion-detalle">
+  <h2 class="titulo-izq">{% if acceso %}Patrón completo{% else %}Vista previa del patrón{% endif %}</h2>
+  <div class="tarjeta patron-texto">
+    {% if acceso %}
+      {% for pieza in piezas %}
+        <h3>Pieza {{ forloop.counter }}: {{ pieza.nombre }}{% if pieza.cantidad > 1 %} (×{{ pieza.cantidad }}){% endif %}</h3>
+        <ul>{% for v in pieza.vueltas.all %}<li>V{{ v.numero }}: {{ v.instruccion }}{% if v.puntos %} ({{ v.puntos }}){% endif %}</li>{% endfor %}</ul>
+      {% endfor %}
+    {% elif vista_previa %}
+      <h3>Pieza 1: {{ vista_previa.pieza.nombre }}</h3>
+      <ul>{% for v in vista_previa.vueltas %}<li>V{{ v.numero }}: {{ v.instruccion }}{% if v.puntos %} ({{ v.puntos }}){% endif %}</li>{% endfor %}</ul>
+      <div class="bloqueo">
+        <div class="candado">🔒</div>
+        <h3>Desbloquea el patrón completo</h3>
+        <p>{{ piezas|length }} piezas · {{ patron.total_vueltas }} vueltas · seguimiento de progreso</p>
+      </div>
+    {% endif %}
+  </div>
+</section>
+
+{% url 'resenar' 'patron' patron.pk as accion %}
+{% include 'tienda/_resenas.html' with accion=accion %}
+{% endblock %}

@@ -1,0 +1,9 @@
+<article class="tarjeta">
+  <a href="{% url 'detalle_patron' p.pk %}">
+    <div class="foto"><img src="{{ p.foto.url }}" alt="Patrón {{ p.titulo }}"></div>
+    <h3>{{ p.titulo }}</h3>
+  </a>
+  <span class="etiqueta">{{ p.get_nivel_display }}</span>
+  {% if p.es_gratuito %}<span class="etiqueta gratis">Gratis</span>{% else %}<span class="etiqueta precio">${{ p.precio }}</span>{% endif %}
+  <p class="estrellas">{% include 'tienda/_estrellas.html' with valor=p.calificacion %}</p>
+</article>
