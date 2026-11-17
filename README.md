@@ -14,8 +14,6 @@ progreso de cada patrón vuelta a vuelta.
 | `avance-1` | Entrega del avance 1: documento del avance (`docs/AvanceProyectoPWCrochet.pdf`) y Home en HTML, CSS y JavaScript |
 | `entrega-final` | Proyecto completo en Django, documento del avance 1 actualizado con los cambios.
 
-![Arquitectura](docs/arquitectura.png)
-
 ## Funcionalidades implementadas
 - Carrusel de imágenes de novedades en la página principal (administrable).
 - Búsqueda de patrones y productos por nombre.
