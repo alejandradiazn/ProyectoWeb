@@ -61,7 +61,6 @@ python manage.py runserver
 | Administrador | `admin` | `admin123` |
 | Cliente | `ana` | `nudito123` |
 
-Panel de administración: http://127.0.0.1:8000/admin/
 
 ## Estructura
 ```
