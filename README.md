@@ -35,7 +35,7 @@ progreso de cada patrón vuelta a vuelta.
 HTML5 · CSS3 · JavaScript (Fetch + JSON) · Python · Django · SQLite · Pillow · Git y GitHub · Penpot
 
 ## Cómo ejecutarlo
-Requiere Python 3.10 o superior. En Windows se puede usar `py` en lugar de `python`.
+
 ```bash
 # 1. Crear y activar un entorno virtual (opcional)
 python -m venv venv
@@ -54,9 +54,6 @@ python manage.py cargar_datos
 # 5. Ejecutar el servidor
 python manage.py runserver
 ```
-Abrir http://127.0.0.1:8000/
-
-> Si el puerto 8000 está ocupado, usar `python manage.py runserver 8001` y abrir http://127.0.0.1:8001/
 
 **Usuarios de prueba**
 | Rol | Usuario | Contraseña |
