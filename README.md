@@ -12,10 +12,8 @@ progreso de cada patrón vuelta a vuelta.
 | Rama | Contenido |
 |---|---|
 | `avance-1` | Entrega del avance 1: documento del avance (`docs/AvanceProyectoPWCrochet.pdf`) y Home en HTML, CSS y JavaScript |
-| `entrega-final` | Proyecto completo en Django, documento del avance 1 actualizado con los cambios (`docs/AvanceProyecto_Nudito_Actualizado.pdf`) y documento de entrega final |
-| `main` | Versión final del proyecto (igual a `entrega-final`) |
+| `entrega-final` | Proyecto completo en Django, documento del avance 1 actualizado con los cambios. |
 
-![Arquitectura](docs/arquitectura.png)
 
 ## Funcionalidades implementadas
 - Carrusel de imágenes de novedades en la página principal (administrable).
